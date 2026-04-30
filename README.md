@@ -10,13 +10,15 @@ This pipeline computes signed side-chain orientation angles for tripeptide conte
 
 ```bash
 chmod +x run_pipeline.sh
-./run_pipeline.sh <path_to_pdbs_dir> <path_to_stride_binary>
+./run_pipeline.sh [pdbs_dir] [stride_binary]
 ```
 
-Example:
+Both arguments are optional. Defaults are `pdbs/` for the PDB directory and `stride` (system PATH) for the STRIDE binary.
+
+Example with custom paths:
 
 ```bash
-./run_pipeline.sh pdbs /usr/local/bin/stride
+./run_pipeline.sh pdb_files /usr/local/bin/stride
 ```
 
 This will run the full pipeline and produce `final/angles.tsv` and `final/angle_plot.png`.
