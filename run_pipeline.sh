@@ -1,7 +1,11 @@
 #!/bin/bash
 
 CORES=8
-export STRIDE_BIN="/mnt/c/Users/VANSH/stride/stride"
+
+
+export PDB_DIR="${1:-pdbs}"
+export STRIDE_BIN="${2:-/mnt/c/Users/VANSH/stride/stride}"
+
 
 echo " PDB to STRIDE"
 snakemake -s secondary_structure_analysis.smk --cores $CORES --keep-going

@@ -6,14 +6,11 @@ import pandas as pd
 from Bio.PDB import PDBParser
 from tqdm import tqdm
 
-# -----------------------------
-# INPUTS
-# -----------------------------
+
 contexts_dir = sys.argv[1]   
 output_file = sys.argv[2]   
 target_aa = sys.argv[3]      
-
-pdb_dir = "pdbs"  
+pdb_dir = sys.argv[4] if len(sys.argv) > 4 else "pdbs"
 
 
 size_map = {
@@ -77,7 +74,6 @@ for file in tqdm(files, desc="Processing contexts"):
 
     path = os.path.join(contexts_dir, file)
 
-    # skip empty files
     if os.path.getsize(path) == 0:
         continue
 
@@ -95,7 +91,6 @@ for file in tqdm(files, desc="Processing contexts"):
     if structure is None:
         continue
 
-    # process tripeptides (3 rows per context)
     for i in range(0, len(df), 3):
 
         try:
@@ -119,7 +114,7 @@ for file in tqdm(files, desc="Processing contexts"):
         r_cent = int(center[2])
         r_next = int(next_[2])
 
-        # get residues
+        # getting residues
         res_prev = get_residue(structure, chain, r_prev)
         res_cent = get_residue(structure, chain, r_cent)
         res_next = get_residue(structure, chain, r_next)
@@ -127,7 +122,7 @@ for file in tqdm(files, desc="Processing contexts"):
         if not res_prev or not res_cent or not res_next:
             continue
 
-        # get coordinates
+        # getting coordinates
         ca_prev = get_ca(res_prev)
         ca_cent = get_ca(res_cent)
         ca_next = get_ca(res_next)
@@ -144,10 +139,7 @@ for file in tqdm(files, desc="Processing contexts"):
         v2 = cen_cent - ca_cent     
 
        
-        axis = np.cross(
-            ca_cent - ca_prev,
-            ca_next - ca_cent
-        )
+        axis = ca_cent - ca_prev
 
         if np.linalg.norm(axis) == 0:
             continue
@@ -157,7 +149,7 @@ for file in tqdm(files, desc="Processing contexts"):
         except:
             continue
 
-        # classify based on LEFT residue
+        # classifying based on LEFT residue
         prev_aa1 = prev[9]
         size_class = size_map.get(prev_aa1, "Unknown")
 
