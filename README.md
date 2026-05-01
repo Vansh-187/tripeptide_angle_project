@@ -6,6 +6,20 @@ This pipeline computes signed side-chain orientation angles for tripeptide conte
 
 ![Angle distribution plot](final/angle_plot.png)
 
+## Setup
+
+```bash
+pip install -r requirements.txt
+```
+
+You also need R with the following packages:
+
+```R
+install.packages(c("ggplot2", "dplyr", "readr"))
+```
+
+And STRIDE installed and accessible on your system.
+
 ## How to Run
 
 ```bash
@@ -21,7 +35,7 @@ Example with custom paths:
 ./run_pipeline.sh pdb_files /usr/local/bin/stride
 ```
 
-This will run the full pipeline and produce `final/angles.tsv` and `final/angle_plot.png`.
+This will produce `final/angles.tsv` and `final/angle_plot.png`.
 
 ## Re-plot from Existing angles.tsv
 
@@ -37,6 +51,7 @@ Rscript scripts/plot_angles.R
 project/
 ├── run_pipeline.sh
 ├── config.yaml
+├── requirements.txt
 ├── pdbs/                        # input .pdb.gz files
 ├── secondary_structure_analysis.smk
 ├── create_context_tsv.smk
@@ -45,8 +60,8 @@ project/
 │   ├── extract_context.py
 │   ├── calculate_angles.py
 │   └── plot_angles.R
-├── stride_out/                  
-├── contexts/                    
+├── stride_out/                  # generated .ss.out files
+├── contexts/                    # generated context TSVs
 └── final/
     ├── angles.tsv
     └── angle_plot.png
