@@ -67,7 +67,8 @@ project/
 │   ├── extract_context.py
 │   ├── calculate_angles.py
 │   └── plot_angles.R
-├── stride_out/                  # generated .ss.out   ├── contexts/                    # generated context TSV
+├── stride_out/                  # generated .ss.out
+├── contexts/                    # generated context TSV
 └── final/
     ├── angles.tsv
     └── angle_plot.png
